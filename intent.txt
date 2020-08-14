@@ -1,0 +1,63 @@
+
+in first activity
+----------------------------------- 
+
+public void startPlayingActivity(String songUri, String songName, int songIndex) {
+        Intent intent = new Intent(MainActivity.this, PlayingActivity.class);
+        intent.putExtra("songUri", songUri);
+        intent.putExtra("songName", songName);
+        intent.putExtra("songIndex", songIndex);
+        intent.putExtra("songsList", (Serializable) songsList);
+        startActivity(intent);
+        this.finish();
+    }
+
+
+---------------------------
+
+in second activity
+
+
+Intent myIntent = getIntent();
+        songsList = (ArrayList<Song>) myIntent.getExtras().getSerializable("songsList");
+        songIndex = myIntent.getIntExtra("songIndex", 0);
+        songName = myIntent.getStringExtra("songName");
+        songUri = myIntent.getStringExtra("songUri");
+
+------------------------------------------------------
+package com.omar.myapps.mediaplayer;
+
+
+import java.io.Serializable;
+
+public class Song implements Serializable {   
+
+// we must use Serializable to set objects automatically
+
+    public static int currentSongIndex = 0;
+    public String name, filepath, auther;
+
+
+    public String getAuther() {
+        return auther;
+    }
+
+    public void setAuther(String auther) {
+        this.auther = auther;
+    }
+
+    public Song(String mname, String filepath, String auther) {
+        name = mname;
+        this.filepath = filepath;
+        this.auther = auther;
+    }
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}
